@@ -3,7 +3,7 @@
 #include "OutputBinder.hpp"
 
 #include <cassert>
-#include <mysql/mysql.h>
+#include <mysql.h>
 
 #include <boost/lexical_cast.hpp>
 #include <string>
@@ -92,7 +92,7 @@ void Friend::refetchTruncatedColumns(
             buffer.resize(untruncatedLength + 1);
             MYSQL_BIND& bind = parameters->at(i);
             bind.buffer = &buffer.at(alreadyRetrieved);
-            bind.buffer_length = buffer.size() - alreadyRetrieved - 1;
+            bind.buffer_length = (unsigned long)(buffer.size() - alreadyRetrieved - 1);
         }
     }
 
@@ -120,7 +120,7 @@ void Friend::refetchTruncatedColumns(
         // Now, for subsequent fetches, we need to reset the buffers
         vector<char>& buffer = buffers->at(column);
         parameter.buffer = buffer.data();
-        parameter.buffer_length = buffer.size();
+        parameter.buffer_length = (unsigned long)buffer.size();
     }
 
     // If we've changed the buffers, we need to rebind

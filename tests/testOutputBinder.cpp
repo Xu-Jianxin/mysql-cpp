@@ -37,7 +37,7 @@ static Target weakLexicalCast(const Source& source) {
 void testSetResult() {
     unsigned int randSeed = 0;
     MYSQL_BIND bind;
-    my_bool nullFlag = false;
+    byte nullFlag = false;
 
     // Put each test in {} to create a local scope so that I don't have to do
     // any weird name mangling
@@ -312,7 +312,7 @@ void testSetResult() {
 
 void testSetParameter() {
     MYSQL_BIND bind;
-    my_bool nullFlag;
+    bool nullFlag;
 
     // Put each test in {} to create a local scope so that I don't have to do
     // any weird name mangling

@@ -3,7 +3,7 @@
 
 #include <cstdint>
 #include <cstring>
-#include <mysql/mysql.h>
+#include <mysql.h>
 
 #include <string>
 #include <vector>
@@ -60,7 +60,7 @@ struct InputBinder<N, char*, Tail...> {
         bindParameter.buffer_type = MYSQL_TYPE_STRING;
         bindParameter.buffer = const_cast<void*>(
             static_cast<const void*>(value));
-        bindParameter.buffer_length = std::strlen(value);
+        bindParameter.buffer_length = (unsigned long)std::strlen(value);
         bindParameter.length = &bindParameter.buffer_length;
         bindParameter.is_unsigned = 0;
         bindParameter.is_null = 0;
@@ -99,7 +99,7 @@ struct InputBinder<N, std::string, Tail...> {
         bindParameter.buffer_type = MYSQL_TYPE_STRING;
         bindParameter.buffer = const_cast<void*>(
             static_cast<const void*>(value.c_str()));
-        bindParameter.buffer_length = value.length();
+        bindParameter.buffer_length = (unsigned long)value.length();
         bindParameter.length = &bindParameter.buffer_length;
         bindParameter.is_unsigned = 0;
         bindParameter.is_null = 0;

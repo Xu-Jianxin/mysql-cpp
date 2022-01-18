@@ -175,7 +175,7 @@ void printTupleVector(const vector<Tuple>& v) {
         cout << *item<< endl;
     }
 #else
-    vector<Tuple>::const_iterator end(users.end());
+    vector<Tuple>::const_iterator end(v.end());
     for (
         vector<Tuple>::const_iterator item(v.begin());
         item != end;

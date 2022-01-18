@@ -3,7 +3,7 @@
 
 #include <cassert>
 #include <cstdint>
-#include <mysql/mysql.h>
+#include <mysql.h>
 
 #include <string>
 #include <sstream>
@@ -18,42 +18,7 @@ MySql::MySql(
     const char* hostname,
     const char* username,
     const char* password,
-    const uint16_t port
-)
-#if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)
-    : MySql(hostname, username, password, nullptr, port)
-{
-}
-#else
-    : connection_(mysql_init(nullptr))
-{
-    if (nullptr == connection_) {
-        throw MySqlException("Unable to connect to MySQL");
-    }
-
-    const MYSQL* const success = mysql_real_connect(
-        connection_,
-        hostname,
-        username,
-        password,
-        nullptr,
-        port,
-        nullptr,
-        0);
-    if (nullptr == success) {
-        MySqlException mse(connection_);
-        mysql_close(connection_);
-        throw mse;
-    }
-}
-#endif
-
-
-MySql::MySql(
-    const char* const hostname,
-    const char* const username,
-    const char* const password,
-    const char* const database,
+    const char* database,
     const uint16_t port
 )
     : connection_(mysql_init(nullptr))
@@ -85,7 +50,7 @@ MySql::~MySql() {
 
 
 my_ulonglong MySql::runCommand(const char* const command) {
-    if (0 != mysql_real_query(connection_, command, strlen(command))) {
+    if (0 != mysql_real_query(connection_, command, (unsigned long)strlen(command))) {
         throw MySqlException(connection_);
     }
 

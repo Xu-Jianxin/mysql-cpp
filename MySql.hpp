@@ -4,7 +4,7 @@
 #include <cassert>
 #include <cstdint>
 #include <cstring>
-#include <mysql/mysql.h>
+#include <mysql.h>
 
 #include <boost/lexical_cast.hpp>
 #include <string>
@@ -29,16 +29,10 @@
 class MySql {
     public:
         MySql(
-            const char* const hostname,
-            const char* const username,
-            const char* const password,
-            const char* const database,
-            const uint16_t port = 3306);
-
-        MySql(
             const char* hostname,
             const char* username,
             const char* password,
+            const char* database = nullptr,
             const uint16_t port = 3306);
 
         ~MySql();

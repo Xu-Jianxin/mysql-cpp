@@ -19,6 +19,7 @@
 # Compiled binaries
 examples
 test
+build
 
 # Vim swap files
 .*.swp
