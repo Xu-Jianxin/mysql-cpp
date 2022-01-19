@@ -23,11 +23,11 @@ if (UNIX)
     set(CMAKE_CXX_FLAGS_RELEASE "-g -O3 ${CMAKE_CXX_FLAGS}")
 elseif (WIN32)
     # windows platform
-    #add_definitions(-D_CRT_SECURE_NO_WARNINGS)
-    #set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MDd")
-    #set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MD")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd /EHsc")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT /EHsc")
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MDd")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MD")
+    # set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd /EHsc")
+    # set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT /EHsc")
 endif()
 
 # mysql library
@@ -43,7 +43,7 @@ link_directories(${MYSQL_LIB})
 
 link_libraries(mysqlclient)
 
-file(GLOB ALLHEADERS ${PROJECT_SOURCE_DIR}/*.h)
-aux_source_directory(${PROJECT_SOURCE_DIR} SRC_LIST)
+file(GLOB SRC_LIST *.cpp *.h *.hpp)
+#aux_source_directory(${PROJECT_SOURCE_DIR} SRC_LIST)
 
-add_executable(mysql_cpp ${SRC_LIST} ${ALLHEADERS})
+add_executable(mysql_cpp ${SRC_LIST})
